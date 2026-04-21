@@ -1,0 +1,28 @@
+{
+  "development": {
+    "username": "{{ mysql_user }}",
+    "password": "{{ mysql_pass }}",
+    "database": "{{ mysql_db }}",
+    "host": "{{ mysql_host }}",
+    "port": 3306,
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "{{ mysql_user }}",
+    "password": "{{ mysql_pass }}",
+    "database": "{{ mysql_db }}",
+    "host": "{{ mysql_host }}",
+    "port": 3306,
+    "dialect": "mysql",
+    "dialectOptions": { "ssl": { "rejectUnauthorized": false } }
+  },
+  "production": {
+    "username": "{{ mysql_user }}",
+    "password": "{{ mysql_pass }}",
+    "database": "{{ mysql_db }}",
+    "host": "{{ mysql_host }}",
+    "port": 3306,
+    "dialect": "mysql",
+    "dialectOptions": { "ssl": { "rejectUnauthorized": false } }
+  }
+}

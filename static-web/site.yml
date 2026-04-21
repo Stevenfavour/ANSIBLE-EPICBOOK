@@ -1,0 +1,34 @@
+---
+- name: Prepare system (common)
+  hosts: web
+  become: true
+  roles:
+    - common
+
+- name: Install and configure Nginx
+  hosts: web
+  become: true
+  roles:
+    - nginx
+
+- name: Deploy EpicBook app
+  hosts: web
+  become: true
+  vars_files:
+    - env_vars.yml
+  roles:
+    - epicbook
+
+- name: Verify Deployment
+  hosts: web
+  tasks:
+    - name: Check site is reachable
+      uri:
+        url: http://{{ inventory_hostname }}
+        return_content: false
+      register: result
+
+    - name: Assert status code 200
+      assert:
+        that:
+          - result.status == 200

@@ -1,0 +1,32 @@
+---
+- name: Install nginx
+  apt:
+    name: nginx
+    state: present
+    update_cache: yes
+
+- name: Ensure nginx is started and enabled
+  service:
+    name: nginx
+    state: started
+    enabled: true
+
+- name: Deploy Nginx site configuration
+  template:
+    src: epicbook.conf.j2
+    dest: "/etc/nginx/sites-available/{{ nginx_site }}.conf"
+  notify: Reload nginx
+
+- name: Enable site by creating symlink
+  file:
+    src: "/etc/nginx/sites-available/{{ nginx_site }}.conf"
+    dest: "/etc/nginx/sites-enabled/{{ nginx_site }}.conf"
+    state: link
+    force: yes
+  notify: Reload nginx
+
+- name: Remove default Nginx site if present
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  notify: Reload nginx

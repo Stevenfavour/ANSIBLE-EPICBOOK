@@ -1,0 +1,43 @@
+Run Your First Ansible Ad-Hoc Commands
+Test connectivity:
+
+bash
+
+ansible all -i inventory.ini -m ping
+Who am I on the remote hosts (no sudo):
+
+bash
+
+ansible all -i inventory.ini -m command -a "whoami"
+Check uptime (all hosts):
+
+bash
+
+ansible all -i inventory.ini -m command -a "uptime"
+Install a package (use --become):
+
+Before installing nginx, run apt update command
+
+bash
+
+ansible web -i inventory.ini -m apt -a "update_cache=yes" --become
+
+bash
+
+ansible web -i inventory.ini -m apt -a "name=nginx state=present" --become
+Start & enable a service (e.g., nginx on web only):
+
+bash
+
+ansible web -i inventory.ini -m service -a "name=nginx state=started enabled=yes" --become
+Install htop on all hosts:
+
+bash
+
+ansible all -i inventory.ini -m apt -a "name=htop state=present" --become
+Target one group vs all:
+
+bash
+
+ansible db -i inventory.ini -m command -a "df -h"
+ansible all -i inventory.ini -m command -a "free -m"

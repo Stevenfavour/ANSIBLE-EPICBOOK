@@ -1,0 +1,4 @@
+MYSQL_HOST: "epicbook-mysql.c9m6skocm038.eu-north-1.rds.amazonaws.com"
+MYSQL_USER: "mysqladmin"
+MYSQL_PASS: "Oluwajuwon1111111"
+MYSQL_DB: "bookstore"

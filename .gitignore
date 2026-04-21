@@ -1,0 +1,30 @@
+# Terraform directory specific ignores
+Terraform/.terraform/
+Terraform/**/*.tfstate
+Terraform/**/*.tfstate.*
+Terraform/**/*.tfstate.backup
+Terraform/**/*.auto.tfvars
+Terraform/**/*.zip
+Terraform/**/*.exe
+
+# Ignore secret variable files
+*.auto.tfvars
+sectret.auto.tfvars
+
+# SSH keys (if any) – avoid committing private keys
+.ssh/
+id_rsa
+id_rsa.pub
+
+# Environment variable files
+.env
+static-web/.env
+
+# IDE/editor files
+.vscode/
+.idea/
+*.log
+
+# Misc large binaries and archives
+*.zip
+*.exe

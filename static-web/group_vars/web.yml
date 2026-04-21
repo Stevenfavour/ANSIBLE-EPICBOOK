@@ -1,0 +1,4 @@
+app_repo: https://github.com/pravinmishraaws/theepicbook
+app_dest: /var/www/epicbook
+app_user: www-data
+nginx_site: epicbook

@@ -1,0 +1,57 @@
+---
+- name: Clone EpicBook repository
+  git:
+    repo: "{{ app_repo }}"
+    dest: "/tmp/{{ nginx_site }}"
+    version: main
+    accept_hostkey: yes
+    single_branch: yes
+    force: yes
+  notify: Reload nginx
+
+- name: Install npm dependencies
+  npm:
+    path: "/tmp/{{ nginx_site }}"
+    production: false
+
+- name: Write Sequelize config (template)
+  template:
+    src: config.json.j2
+    dest: "/tmp/{{ nginx_site }}/config/config.json"
+
+- name: Synchronize site content to web root
+  synchronize:
+    src: "/tmp/{{ nginx_site }}/"
+    dest: "{{ app_dest }}/"
+    delete: yes
+    rsync_opts:
+      - "--chmod=Du=rwx,Dg=rx,Do=rx,Fu=rw,Fg=r,Fo=r"
+  delegate_to: "{{ inventory_hostname }}"
+  notify: Reload nginx
+
+- name: Ensure proper ownership of site files
+  file:
+    path: "{{ app_dest }}"
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    recurse: yes
+
+- name: Start EpicBook with PM2
+  command: pm2 start server.js --name epicbook -f
+  args:
+    chdir: "{{ app_dest }}"
+
+- name: Enable PM2 startup script
+  command: pm2 startup
+  register: pm2_startup
+
+- name: Run generated PM2 startup command
+  shell: "{{ pm2_startup.stdout_lines[-1] | regex_replace('^\\$\\s*', '') }}"
+  args:
+    executable: /bin/bash
+
+- name: Save PM2 process list
+  command: pm2 save
+
+- import_tasks: import_mysql.yml
+  when: import_mysql | default(true)

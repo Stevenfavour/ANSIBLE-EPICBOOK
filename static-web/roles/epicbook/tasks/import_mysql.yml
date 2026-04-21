@@ -1,0 +1,51 @@
+- name: Ensure remote directory for SQL files
+  file:
+    path: /tmp/epicbook_sql
+    state: directory
+    mode: '0755'
+
+- name: Copy schema file to remote host
+  copy:
+    src: "{{ role_path }}/files/BuyTheBook_Schema.sql"
+    dest: /tmp/epicbook_sql/BuyTheBook_Schema.sql
+    mode: '0644'
+
+- name: Copy author seed file to remote host
+  copy:
+    src: "{{ role_path }}/files/author_seed.sql"
+    dest: /tmp/epicbook_sql/author_seed.sql
+    mode: '0644'
+
+- name: Copy books seed file to remote host
+  copy:
+    src: "{{ role_path }}/files/books_seed.sql"
+    dest: /tmp/epicbook_sql/books_seed.sql
+    mode: '0644'
+
+- name: Import schema and seed data
+  mysql_db:
+    login_host: "{{ mysql_host }}"
+    login_user: "{{ mysql_user }}"
+    login_password: "{{ mysql_pass }}"
+    name: "{{ mysql_db }}"
+    state: import
+    target: "/tmp/epicbook_sql/BuyTheBook_Schema.sql"
+  ignore_errors: true
+- name: Import author seed
+  mysql_db:
+    login_host: "{{ mysql_host }}"
+    login_user: "{{ mysql_user }}"
+    login_password: "{{ mysql_pass }}"
+    name: "{{ mysql_db }}"
+    state: import
+    target: "/tmp/epicbook_sql/author_seed.sql"
+  ignore_errors: true
+- name: Import books seed
+  mysql_db:
+    login_host: "{{ mysql_host }}"
+    login_user: "{{ mysql_user }}"
+    login_password: "{{ mysql_pass }}"
+    name: "{{ mysql_db }}"
+    state: import
+    target: "/tmp/epicbook_sql/books_seed.sql"
+  ignore_errors: true

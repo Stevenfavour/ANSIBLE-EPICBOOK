@@ -1,0 +1,33 @@
+---
+- name: Update apt cache and upgrade packages
+  apt:
+    update_cache: yes
+    upgrade: dist
+
+- name: Install baseline packages
+  apt:
+    name:
+      - git
+      - curl
+      - unzip
+      - software-properties-common
+      - nodejs
+      - npm
+      - mysql-client
+      - python3-pip
+      - python3-dev
+      - default-libmysqlclient-dev
+    state: present
+    install_recommends: no
+- name: Install PM2 globally
+  npm:
+      name: pm2
+      global: yes
+      state: present
+
+
+- name: Install MySQL Python client library
+  pip:
+    name: pymysql
+    executable: pip3
+

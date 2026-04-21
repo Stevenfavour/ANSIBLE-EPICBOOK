@@ -1,0 +1,11 @@
+---
+# vars file for roles/epicbook
+app_repo: "https://github.com/pravinmishraaws/theepicbook.git"
+app_dest: "/var/www/epicbook"
+app_user: "www-data"
+nginx_site: "theepicbook"
+# MySQL – replace placeholders with actual credentials before running the playbook
+mysql_host: "{{ MYSQL_HOST }}"
+mysql_user: "{{ MYSQL_USER }}"
+mysql_pass: "{{ MYSQL_PASS }}"
+mysql_db: "{{ MYSQL_DB | default('bookstore') }}"
