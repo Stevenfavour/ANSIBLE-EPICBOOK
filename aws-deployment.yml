@@ -60,6 +60,8 @@ stages:
         workingDirectory: $(System.DefaultWorkingDirectory)/terraform
         inlineScript: |
           echo "##[group]Terraform Init/Plan/Apply"
+          echo "Starting Init..."
           terraform init -input=false
+          echo "Starting Plan..."
           terraform plan -input=false -var-file="terraform.tfvars"
           echo "##[endgroup]"
