@@ -3,6 +3,9 @@ trigger:
 pool:
       name: 'linux-agent-pool'
 
+variables:
+  - name: system.debug
+    value: true
 stages:
 - stage: Terraform
   displayName: 'Provision Infrastructure'
@@ -59,9 +62,10 @@ stages:
         scriptLocation: 'inlineScript'
         workingDirectory: $(System.DefaultWorkingDirectory)/terraform
         inlineScript: |
+          set -x
           echo "##[group]Terraform Init/Plan/Apply"
           echo "Starting Init..."
-          terraform init 
+          terraform init -input=false -no-color
           echo "Starting Plan..."
-          terraform plan 
+          terraform plan -input=false -var-file="terraform.tfvars" -no-color
           echo "##[endgroup]"
