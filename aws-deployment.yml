@@ -54,6 +54,7 @@ stages:
       inputs:
         awsCredentials: 'AWS'
         regionName: 'eu-north-1'
+        awsCommand: 'custom'
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         workingDirectory: $(System.DefaultWorkingDirectory)/terraform
