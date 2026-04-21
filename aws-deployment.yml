@@ -1,15 +1,15 @@
 trigger:
       - main
+pool:
+      name: 'linux-agent-pool'
 
 stages:
-
 - stage: Terraform
   displayName: 'Provision Infrastructure'
   jobs:
   - job: Terraform_Apply
     displayName: 'Terraform Apply'
-    pool:
-      name: 'linux-agent-pool'
+    
     steps:
  
     # Not needed for hosted vm
