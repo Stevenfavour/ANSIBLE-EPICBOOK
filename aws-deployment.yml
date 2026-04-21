@@ -50,7 +50,7 @@ stages:
         sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
         sudo apt-get update && sudo apt-get install -y terraform
       displayName: 'Install Terraform'
-    - task: AWSCLI@1
+    - task: AWSShellScript@1
       inputs:
         awsCredentials: 'AWS'
         regionName: 'eu-north-1'
