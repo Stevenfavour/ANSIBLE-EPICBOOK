@@ -3,7 +3,6 @@ Terraform/.terraform/
 Terraform/**/*.tfstate
 Terraform/**/*.tfstate.*
 Terraform/**/*.tfstate.backup
-Terraform/**/*.auto.tfvars
 Terraform/**/*.zip
 Terraform/**/*.exe
 
