@@ -61,7 +61,7 @@ stages:
         inlineScript: |
           echo "##[group]Terraform Init/Plan/Apply"
           echo "Starting Init..."
-          terraform init -input=false
+          terraform init 
           echo "Starting Plan..."
-          terraform plan -input=false -var-file="terraform.tfvars"
+          terraform plan 
           echo "##[endgroup]"

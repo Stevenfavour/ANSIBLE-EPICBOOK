@@ -7,9 +7,7 @@ Terraform/**/*.auto.tfvars
 Terraform/**/*.zip
 Terraform/**/*.exe
 
-# Ignore secret variable files
-*.auto.tfvars
-sectret.auto.tfvars
+
 
 # SSH keys (if any) – avoid committing private keys
 .ssh/
