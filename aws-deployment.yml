@@ -33,7 +33,8 @@ stages:
         mkdir -p ~/.ssh
         cp $(download_ssh_key.secureFilePath) ~/.ssh/id_rsa.pub
 
-        # Now copy into Terraform module path
+        # Ensure the target directory exists before copying
+        mkdir -p terraform/modules/compute
         cp $(download_ssh_key.secureFilePath) terraform/modules/compute/id_rsa.pub
 
         echo "Listing contents of terraform/modules/compute/"
