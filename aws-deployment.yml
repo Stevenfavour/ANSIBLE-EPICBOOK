@@ -1,9 +1,4 @@
 trigger:
-  paths:
-    include:
-      - terraform/**
-  branches:
-    include:
       - main
 
 stages:
