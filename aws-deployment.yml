@@ -63,7 +63,7 @@ stages:
         workingDirectory: $(System.DefaultWorkingDirectory)/terraform
         inlineScript: |
           set -x
-          echo "##[group]Terraform Init/Plan/Apply"
+          echo "##[group]Terraform Init/Plan"
           echo "Starting Init..."
           terraform init -input=false -no-color
           echo "Starting Plan..."
